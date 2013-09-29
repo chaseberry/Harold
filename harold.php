@@ -1,8 +1,6 @@
 <?php
-$file = scandir("./Harold/");
-unset($file[0]);
-unset($file[1]);
-$music = "./Harold/" . $file[array_rand($file,1)];
+$files = array_diff(scandir("./Harold/"), array('..','.'));
+$music = "./Harold/" . $files[array_rand($files,1)];
 if(file_exists($music)){
 
 header("Content-Type:audio/x-mp3");
