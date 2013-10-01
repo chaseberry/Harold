@@ -1,17 +1,23 @@
 <?php
 
+$file_types = array(
+	"mp3"=>"Content-Type:audio/x-mp3",
+	"mp4"=>"Content-Type:audio/mp4",
+	"wav"=>"Content-Type:audio/vnd.wave"
+);
+
 $files = array_merge(getMusic("./Harold/"),getMusic("./harold/"));	//make the array from the two folders
 
 for($z = 0; $z < count($files); $z++){
-	$temp = explode(".", $files[$z]);					//gets the extension
-	if($temp[2] != "mp3"){						//check for mp3
+	$temp = getFileType($files[$z]);					//gets the extension
+	if($temp != "mp3" && $temp != "wav" && $temp != "mp4" ){						//check for mp3
 		unset($files[$z]);						//removes all non-mp3 files from array
 	}	
 }	
 
 $music = $files[array_rand($files,1)];					//sets the music file to play from Harold
 if(file_exists($music)){							//the music file exists
-	header("Content-Type:audio/x-mp3");				//set header type
+	header($file_types[getFileType($music)]);				//set header type
 	readfile($music);							//play it
 }
 
@@ -28,6 +34,11 @@ function addDir($arr, $file){
 		$arr[$z] = $file . $arr[$z];				//adds the correct directory for each file
 	}
 	return $arr;
+}
+
+function getFileType($file){
+	$file = explode(".",$file);
+	return strtolower($file[count($file)-1]);
 }
 
 ?>
