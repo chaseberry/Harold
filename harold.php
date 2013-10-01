@@ -1,7 +1,7 @@
 <?php
 
 $file_types = array(
-	"mp3"=>"Content-Type:audio/x-mp3",
+	"mp3"=>"Content-Type:audio/mpeg",
 	"mp4"=>"Content-Type:audio/mp4",
 	"wav"=>"Content-Type:audio/vnd.wave"
 );
